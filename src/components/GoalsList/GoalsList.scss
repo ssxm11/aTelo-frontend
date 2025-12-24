@@ -1,0 +1,29 @@
+.goals {
+  list-style: none;
+  padding: 0;
+
+  li {
+    padding: 1rem 1.25rem;
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    border: 1px solid #eee;
+
+    &.done {
+      opacity: 0.6;
+      text-decoration: line-through;
+    }
+  }
+}
+
+.empty {
+  padding: 2rem;
+  background: #f4f6ff;
+  border-radius: 12px;
+  text-align: center;
+
+  span {
+    color: #5f7cff;
+    font-size: 0.9rem;
+  }
+}
