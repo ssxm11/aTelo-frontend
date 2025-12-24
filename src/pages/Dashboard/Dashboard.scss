@@ -1,0 +1,17 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+
+  &-header {
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #666;
+      font-size: 1rem;
+    }
+  }
+}
