@@ -11,7 +11,7 @@ export default function Dashboard() {
   return (
     <section className="dashboard">
       <header className="dashboard-header">
-        <h1>Hola{user?.email ? `, ${user.email}` : ''}</h1>
+        <h1>Hola{user?.email ? `, ${user.name}` : ''}</h1>
         <p>Hoy puedes ir a tu ritmo.</p>
       </header>
         <AddGoal />

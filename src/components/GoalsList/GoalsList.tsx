@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import api from '../../api/axios';
 import './GoalsList.scss';
 
@@ -11,10 +13,11 @@ interface Goal {
 export default function GoalsList() {
   const [goals, setGoals] = useState<Goal[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     api.get('/goals')
-      .then(res => setGoals(res.data))
+      .then(res => setGoals(res.data.data)) 
       .finally(() => setLoading(false));
   }, []);
 
@@ -32,12 +35,16 @@ export default function GoalsList() {
   }
 
   return (
-    <ul className="goals">
-      {goals.map(goal => (
-        <li key={goal._id} className={goal.completed ? 'done' : ''}>
-          {goal.title}
-        </li>
-      ))}
-    </ul>
+   <ul className="goals">
+  {goals.map(goal => (
+    <li
+      key={goal._id}
+      className={goal.completed ? 'done' : ''}
+      onClick={() => navigate(`/goals/${goal._id}`)}
+    >
+      {goal.title}
+    </li>
+  ))}
+</ul>
   );
 }

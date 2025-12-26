@@ -26,7 +26,7 @@ export default function Navbar() {
     </>
   ) : (
     <>
-      <span className="user">{user.email}</span>
+      <span className="user">{user.name}</span>
       <button onClick={handleLogout} className="logout">Salir</button>
     </>
   )}
