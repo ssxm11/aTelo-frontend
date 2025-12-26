@@ -1,0 +1,56 @@
+.goal-page {
+  padding: 1.5rem;
+}
+
+.goal-header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.tasks-section {
+  margin-top: 2rem;
+}
+
+.tasks {
+  list-style: none;
+  padding: 0;
+}
+
+.tasks li {
+  padding: 0.5rem 0;
+}
+
+.tasks li.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.add-task {
+  margin-top: 1rem;
+}
+.tasks li {
+  cursor: pointer;
+}
+
+.tasks li.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+.goal-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #555;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+

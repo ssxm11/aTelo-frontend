@@ -5,7 +5,7 @@ import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import Register from './pages/Register/Register';
-
+import GoalPage from './pages/Goal/GoalPage';
 function App() {
   return (
     <BrowserRouter>
@@ -14,6 +14,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/goals/:goalId" element={<GoalPage />} />
+
           <Route
             path="/dashboard"
             element={
