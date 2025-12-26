@@ -8,7 +8,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await logout();
+      logout();
       navigate('/login');
     } catch (e) {
       console.error('Error al cerrar sesión');
@@ -17,20 +17,21 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="logo">aTelo</Link>
+  <Link to="/" className="logo">aTelo</Link>
 
-      <div className="links">
-        {!user ? (
-          <Link to="/login">Entrar</Link>
-        ) : (
-          <>
-            <span className="user">{user.email}</span>
-            <button onClick={handleLogout} className="logout">
-              Salir
-            </button>
-          </>
-        )}
-      </div>
-    </nav>
+  {!user ? (
+    <>
+      <Link to="/login" className="link">Entrar</Link>
+      <Link to="/register" className="link">Registrarse</Link>
+    </>
+  ) : (
+    <>
+      <span className="user">{user.email}</span>
+      <button onClick={handleLogout} className="logout">Salir</button>
+    </>
+  )}
+</nav>
+
   );
 }
+

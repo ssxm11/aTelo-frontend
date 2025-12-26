@@ -1,18 +1,15 @@
-import { ReactNode } from 'react';
 import Navbar from '../Navbar/Navbar';
 import './Layout.scss';
 
-interface Props {
-  children: ReactNode;
-}
 
-export default function Layout({ children }: Props) {
+
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <div className="app-layout">
       <Navbar />
-      <main className="layout">
+      <main className="app-content">
         {children}
       </main>
-    </>
+    </div>
   );
 }
