@@ -53,4 +53,14 @@
     text-decoration: underline;
   }
 }
+.task-actions {
+  display: inline-flex;
+  gap: 0.5rem;
+  margin-left: 1rem;
+}
+
+.edit-mode {
+  margin-left: 0.5rem;
+}
+
 

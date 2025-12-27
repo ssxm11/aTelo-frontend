@@ -9,11 +9,50 @@ interface Goal {
   title: string;
   completed: boolean;
 }
+interface GoalsListProps {
+  editMode: boolean;
+  onGoalsCountChange: (count: number) => void;
+}
 
-export default function GoalsList() {
+export default function GoalsList({
+  editMode,
+  onGoalsCountChange
+}: GoalsListProps) {
   const [goals, setGoals] = useState<Goal[]>([]);
   const [loading, setLoading] = useState(true);
+  const [editingGoalId, setEditingGoalId] = useState<string | null>(null);
+  const [editingTitle, setEditingTitle] = useState('');
+
   const navigate = useNavigate();
+
+  const handleUpdateGoal = async (goalId: string) => {
+  if (!editingTitle.trim()) return;
+
+  await api.patch(`/goals/${goalId}`, {
+    title: editingTitle
+  });
+
+  setGoals(prev =>
+    prev.map(goal =>
+      goal._id === goalId
+        ? { ...goal, title: editingTitle }
+        : goal
+    )
+  );
+
+  setEditingGoalId(null);
+  setEditingTitle('');
+};
+
+const handleDeleteGoal = async (goalId: string) => {
+  await api.delete(`/goals/${goalId}`);
+
+  setGoals(prev => prev.filter(goal => goal._id !== goalId));
+};
+
+useEffect(() => {
+  onGoalsCountChange(goals.length);
+}, [goals, onGoalsCountChange]);
 
   useEffect(() => {
     api.get('/goals')
@@ -37,13 +76,48 @@ export default function GoalsList() {
   return (
    <ul className="goals">
   {goals.map(goal => (
-    <li
-      key={goal._id}
-      className={goal.completed ? 'done' : ''}
-      onClick={() => navigate(`/goals/${goal._id}`)}
-    >
-      {goal.title}
-    </li>
+    <li className="goal-item">
+  {editingGoalId === goal._id ? (
+    <>
+      <input
+        value={editingTitle}
+        onChange={e => setEditingTitle(e.target.value)}
+        onKeyDown={e => e.key === 'Enter' && handleUpdateGoal(goal._id)}
+        autoFocus
+      />
+      <button onClick={() => handleUpdateGoal(goal._id)}>💾</button>
+      <button onClick={() => setEditingGoalId(null)}>✖</button>
+    </>
+  ) : (
+    <>
+      <span
+        onClick={() =>
+          !editMode && navigate(`/goals/${goal._id}`)
+        }
+      >
+        {goal.title}
+      </span>
+
+      {editMode && (
+        <div className="goal-actions">
+          <button
+            onClick={() => {
+              setEditingGoalId(goal._id);
+              setEditingTitle(goal.title);
+            }}
+          >
+            ✏️
+          </button>
+
+          <button onClick={() => handleDeleteGoal(goal._id)}>
+            🗑️
+          </button>
+        </div>
+      )}
+    </>
+  )}
+</li>
+
   ))}
 </ul>
   );
