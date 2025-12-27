@@ -20,8 +20,10 @@ export default function AddGoal() {
   };
 
   return (
+    
     <button className="add-goal" onClick={handleCreateGoal}>
       + Nuevo objetivo
     </button>
+    
   );
 }

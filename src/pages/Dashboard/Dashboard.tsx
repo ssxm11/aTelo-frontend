@@ -4,18 +4,39 @@ import AddGoal from '../../components/AddGoal/AddGoal';
 
 
 import './Dashboard.scss';
+import { useState } from 'react';
 
 export default function Dashboard() {
   const { user } = useAuth();
 
+   const [editMode, setEditMode] = useState(false);
+   const [goalsCount, setGoalsCount] = useState(0);
+
+   
   return (
     <section className="dashboard">
       <header className="dashboard-header">
         <h1>Hola{user?.email ? `, ${user.name}` : ''}</h1>
         <p>Hoy puedes ir a tu ritmo.</p>
       </header>
+
+      <div className="dashboard-actions">
         <AddGoal />
-        <GoalsList />
+
+        {goalsCount > 0 && (
+          <button
+            className="edit-mode"
+            onClick={() => setEditMode(prev => !prev)}
+          >
+            {editMode ? 'Salir edición' : 'Editar'}
+          </button>
+        )}
+      </div>
+
+      <GoalsList
+        editMode={editMode}
+        onGoalsCountChange={setGoalsCount}
+      />
     </section>
   );
 }

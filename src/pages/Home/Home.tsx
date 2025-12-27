@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import './Home.scss';
 
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <section className="home">
       <h1>Tu bienestar primero.</h1>
@@ -13,6 +15,14 @@ export default function Home() {
       <div className="highlight">
         Hoy está bien avanzar lento.
       </div>
+      <div>
+       <button
+    className="back-button"
+    onClick={() => navigate('/dashboard')}
+  >
+    Ver Objetivos
+  </button>
+  </div>
     </section>
   );
 }
