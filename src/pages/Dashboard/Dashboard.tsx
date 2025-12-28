@@ -11,6 +11,7 @@ export default function Dashboard() {
 
    const [editMode, setEditMode] = useState(false);
    const [goalsCount, setGoalsCount] = useState(0);
+   const [reloadGoals, setReloadGoals] = useState(0);
 
    
   return (
@@ -21,7 +22,7 @@ export default function Dashboard() {
       </header>
 
       <div className="dashboard-actions">
-        <AddGoal />
+        <AddGoal onGoalCreated={() => setReloadGoals(v => v + 1)} />
 
         {goalsCount > 0 && (
           <button
@@ -35,6 +36,7 @@ export default function Dashboard() {
 
       <GoalsList
         editMode={editMode}
+        reloadKey={reloadGoals}
         onGoalsCountChange={setGoalsCount}
       />
     </section>

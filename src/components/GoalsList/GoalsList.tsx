@@ -7,15 +7,20 @@ import './GoalsList.scss';
 interface Goal {
   _id: string;
   title: string;
+  description?: string;
   completed: boolean;
 }
+ 
 interface GoalsListProps {
   editMode: boolean;
+  
+  reloadKey: number;
   onGoalsCountChange: (count: number) => void;
 }
 
 export default function GoalsList({
   editMode,
+  reloadKey,
   onGoalsCountChange
 }: GoalsListProps) {
   const [goals, setGoals] = useState<Goal[]>([]);
@@ -54,11 +59,14 @@ useEffect(() => {
   onGoalsCountChange(goals.length);
 }, [goals, onGoalsCountChange]);
 
+
   useEffect(() => {
-    api.get('/goals')
-      .then(res => setGoals(res.data.data)) 
-      .finally(() => setLoading(false));
-  }, []);
+  setLoading(true);
+
+  api.get('/goals')
+    .then(res => setGoals(res.data.data))
+    .finally(() => setLoading(false));
+}, [reloadKey]);
 
   if (loading) {
     return <p>Cargando tus objetivos…</p>;
@@ -76,7 +84,7 @@ useEffect(() => {
   return (
    <ul className="goals">
   {goals.map(goal => (
-    <li className="goal-item">
+    <li key={goal._id} className="goal-item">
   {editingGoalId === goal._id ? (
     <>
       <input
@@ -90,13 +98,20 @@ useEffect(() => {
     </>
   ) : (
     <>
-      <span
-        onClick={() =>
-          !editMode && navigate(`/goals/${goal._id}`)
-        }
-      >
-        {goal.title}
-      </span>
+      <div
+  className="goal-content"
+  onClick={() =>
+    !editMode && navigate(`/goals/${goal._id}`)
+  }
+>
+  <h3 className="goal-title">{goal.title}</h3>
+
+  {goal.description && (
+    <p className="goal-description">
+      {goal.description}
+    </p>
+  )}
+</div>
 
       {editMode && (
         <div className="goal-actions">
