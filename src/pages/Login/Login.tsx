@@ -19,7 +19,8 @@ export default function Login() {
 
     try {
       await login(email, password);
-      navigate('/dashboard');
+      navigate('/check-in');
+
     } catch (err: any) {
       setError(err.response?.data?.message || 'Algo salió mal');
     } finally {
