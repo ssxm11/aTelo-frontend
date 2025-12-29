@@ -6,6 +6,14 @@ export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
+  const handleLogoClick = () => {
+    if (user) {
+      navigate('/dashboard');
+    } else {
+      navigate('/');
+    }
+  };
+
   const handleLogout = async () => {
     try {
       logout();
@@ -17,21 +25,25 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-  <Link to="/" className="logo">aTelo</Link>
+      <span
+        className="logo"
+        onClick={handleLogoClick}
+        style={{ cursor: 'pointer' }}
+      >
+        aTelo
+      </span>
 
-  {!user ? (
-    <>
-      <Link to="/login" className="link">Entrar</Link>
-      <Link to="/register" className="link">Registrarse</Link>
-    </>
-  ) : (
-    <>
-      <span className="user">{user.name}</span>
-      <button onClick={handleLogout} className="logout">Salir</button>
-    </>
-  )}
-</nav>
-
+      {!user ? (
+        <>
+          <Link to="/login" className="link">Entrar</Link>
+          <Link to="/register" className="link">Registrarse</Link>
+        </>
+      ) : (
+        <>
+          <span className="user">{user.name}</span>
+          <button onClick={handleLogout} className="logout">Salir</button>
+        </>
+      )}
+    </nav>
   );
 }
-

@@ -12,13 +12,21 @@ function App() {
     <BrowserRouter>
       <Layout>
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/check-in" element={<CheckIn />} />
+          
 
           <Route path="/register" element={<Register />} />
           <Route path="/goals/:goalId" element={<GoalPage />} />
-
+          <Route
+            path="/check-in"
+            element={
+              <ProtectedRoute>
+                <CheckIn />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/dashboard"
             element={
