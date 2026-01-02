@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-//import './FocusSpace.scss';
+import './FocusSpace.scss';
 
 type ModeId = 'gentle' | 'short' | 'flow';
 
