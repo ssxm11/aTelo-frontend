@@ -7,6 +7,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Register from './pages/Register/Register';
 import GoalPage from './pages/Goal/GoalPage';
 import CheckIn from './pages/CheckIn/CheckIn';
+import FocusSpace from './pages/FocusSpace/FocusSpace';
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ function App() {
 
           <Route path="/register" element={<Register />} />
           <Route path="/goals/:goalId" element={<GoalPage />} />
+          
           <Route
             path="/check-in"
             element={
@@ -32,6 +34,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+
+        <Route
+            path="/focus"
+            element={
+              <ProtectedRoute>
+                <FocusSpace />
               </ProtectedRoute>
             }
           />

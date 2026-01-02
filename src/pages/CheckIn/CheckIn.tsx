@@ -18,6 +18,7 @@ export default function CheckIn() {
 
       const res = await api.post('/ai/check-in', {
         message: answer
+        
       });
 
       const { canProceed } = res.data;

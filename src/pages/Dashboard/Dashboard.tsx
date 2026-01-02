@@ -1,4 +1,5 @@
 import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import GoalsList from '../../components/GoalsList/GoalsList';
 import AddGoal from '../../components/AddGoal/AddGoal';
 
@@ -12,7 +13,7 @@ export default function Dashboard() {
    const [editMode, setEditMode] = useState(false);
    const [goalsCount, setGoalsCount] = useState(0);
    const [reloadGoals, setReloadGoals] = useState(0);
-
+  const navigate = useNavigate();
    
   return (
     <section className="dashboard">
@@ -20,7 +21,14 @@ export default function Dashboard() {
         <h1>Hola{user?.email ? `, ${user.name}` : ''}</h1>
         <p>Hoy puedes ir a tu ritmo.</p>
       </header>
-
+      <div className="focus-entry">
+        <button
+          className="focus-button"
+          onClick={() => navigate('/focus')}
+        >
+          Entrar en espacio de foco
+        </button>
+      </div>
       <div className="dashboard-actions">
         <AddGoal onGoalCreated={() => setReloadGoals(v => v + 1)} />
 
