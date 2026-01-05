@@ -9,8 +9,14 @@ interface Goal {
   title: string;
   description?: string;
   completed: boolean;
+  progress: number | null;
+  type?: 'goal' | 'intention';
+  intention?: {
+    enabled: boolean;
+    recurrence: 'daily' | 'weekly';
+  };
 }
- 
+
 interface GoalsListProps {
   editMode: boolean;
   
@@ -27,6 +33,8 @@ export default function GoalsList({
   const [loading, setLoading] = useState(true);
   const [editingGoalId, setEditingGoalId] = useState<string | null>(null);
   const [editingTitle, setEditingTitle] = useState('');
+  const goalsOnly = goals.filter(g => g.type !== 'intention');
+  const intentions = goals.filter(g => g.type === 'intention');
 
   const navigate = useNavigate();
 
@@ -72,14 +80,16 @@ useEffect(() => {
     return <p>Cargando tus objetivos…</p>;
   }
 
-  if (goals.length === 0) {
-    return (
-      <div className="empty">
-        <p>No tienes objetivos aún.</p>
-        <span>Está bien empezar poco a poco.</span>
-      </div>
-    );
-  }
+  if (goalsOnly.length === 0) {
+  return (
+    <div className="empty">
+      <p>No tienes objetivos aún.</p>
+      <span>
+        Si hoy no es el momento, está bien.
+      </span>
+    </div>
+  );
+}
 
   return (
    <ul className="goals">
@@ -111,7 +121,28 @@ useEffect(() => {
       {goal.description}
     </p>
   )}
+
+  {goal.progress !== null && (
+    <div className="goal-progress">
+      <div
+        className="goal-progress-bar"
+        style={{ width: `${goal.progress * 100}%` }}
+      />
+    </div>
+  )}
 </div>
+
+{/* {!editMode && typeof goal.progress === 'number' && (
+  <div className="goal-progress">
+    <div
+      className="goal-progress-bar"
+      style={{ width: `${goal.progress}%` }}
+    />
+    <span className="goal-progress-label">
+      {goal.progress}%
+    </span>
+  </div>
+)} */}
 
       {editMode && (
         <div className="goal-actions">
@@ -130,6 +161,7 @@ useEffect(() => {
         </div>
       )}
     </>
+    
   )}
 </li>
 

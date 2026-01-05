@@ -50,6 +50,7 @@ export default function GoalPage() {
 }
 
 };
+
 const toggleTaskStatus = async (taskId: string, currentStatus: string) => {
   const newStatus = currentStatus === 'completed'
     ? 'pending'
@@ -117,6 +118,14 @@ useEffect(() => {
   if (!goal) {
     return <p>Objetivo no encontrado</p>;
   }
+const completedTasks = tasks.filter(
+  t => t.status === 'completed'
+).length;
+
+const progress =
+  tasks.length > 0
+    ? completedTasks / tasks.length
+    : null;
 
   return (
     <div className="goal-page">
@@ -128,6 +137,14 @@ useEffect(() => {
     ← Volver
   </button>
         <h1>{goal.title}</h1>
+         {progress !== null && (
+    <div className="goal-progress">
+      <div
+        className="goal-progress-bar"
+        style={{ width: `${progress * 100}%` }}
+      />
+    </div>
+  )}
       </header>
 
       <section className="tasks-section">

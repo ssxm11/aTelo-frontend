@@ -7,30 +7,49 @@ export default function CheckIn() {
   const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);
   const [blocked, setBlocked] = useState(false);
+  const BLOCKING_DIAGNOSES = ['tired', 'overwhelmed', 'foggy'];
+  const [diagnosis, setDiagnosis] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
+  
   const handleSubmit = async () => {
-    if (!answer.trim()) return;
+  if (!answer.trim() || loading) return;
 
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      const res = await api.post('/ai/check-in', {
-        message: answer
-      });
+    const res = await api.post('/ai/check-in', {
+      message: answer
+    });
 
-      const { canProceed } = res.data;
+    const { diagnosis } = res.data;
+    setDiagnosis(diagnosis);
 
-      if (canProceed) {
-        navigate('/dashboard');
-      } else {
-        setBlocked(true);
-      }
-    } finally {
-      setLoading(false);
+    if (BLOCKING_DIAGNOSES.includes(diagnosis)) {
+      setBlocked(true);
+    } else {
+      navigate('/dashboard');
     }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
+const DIAGNOSIS_COPY: Record<string, { title: string; text: string }> = {
+  tired: {
+    title: 'Hoy estás cansado.',
+    text: 'Tal vez avanzar despacio sea mejor que exigirte.'
+  },
+  overwhelmed: {
+    title: 'Hoy todo se siente un poco demasiado.',
+    text: 'Reducir la carga también es una forma de avanzar.'
+  },
+  foggy: {
+    title: 'Hoy hay algo de niebla mental.',
+    text: 'Quizá no es momento de decisiones grandes.'
+  }
+};
+
 
   return (
     <section className="check-in">
@@ -50,20 +69,34 @@ export default function CheckIn() {
         Continuar
       </button>
 
-      {blocked && (
-        <div className="blocked">
-          <p>
-            Hoy quizá no sea un día para exigirte.
-          </p>
-          <span>
-            Está bien ir más despacio o simplemente descansar.
-          </span>
+      {blocked && diagnosis && (
+  <div className="blocked">
+    <p className="blocked-title">
+      {DIAGNOSIS_COPY[diagnosis].title}
+    </p>
 
-          <button onClick={() => navigate('/dashboard')}>
-            Ir igual al dashboard
-          </button>
-        </div>
-      )}
+    <p className="blocked-text">
+      {DIAGNOSIS_COPY[diagnosis].text}
+    </p>
+
+    <div className="blocked-actions">
+      <button
+        className="secondary"
+        onClick={() => navigate('/dashboard')}
+      >
+        Ir al dashboard igual
+      </button>
+
+      <button
+        className="primary"
+        onClick={() => setBlocked(false)}
+      >
+        Reescribir respuesta
+      </button>
+    </div>
+  </div>
+)}
+
     </section>
   );
 }
