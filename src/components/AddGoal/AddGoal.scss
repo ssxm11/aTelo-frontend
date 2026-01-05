@@ -1,9 +1,116 @@
 .add-goal {
-  align-self: flex-start;
-  padding: 0.75rem 1.25rem;
-  background: #5f7cff;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  padding: 1.5rem;
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.04);
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  .type-selector {
+    display: flex;
+    gap: 0.5rem;
+
+    button {
+      flex: 1;
+      padding: 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      font-size: 0.9rem;
+
+      &.active {
+        background: rgba(255, 255, 255, 0.12);
+      }
+    }
+  }
+
+  .type-hint {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  input,
+  textarea,
+  select {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem;
+    color: inherit;
+    font-size: 0.95rem;
+
+    &:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.09);
+    }
+  }
+
+  textarea {
+    resize: none;
+    min-height: 80px;
+  }
+
+  .intention-config {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+  }
+
+  button:last-child {
+    align-self: flex-start;
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: inherit;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
 }
+.add-goal-trigger {
+  align-self: flex-start;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.9rem;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.add-goal {
+  .actions {
+    display: flex;
+    gap: 0.75rem;
+
+    .cancel {
+      background: transparent;
+      opacity: 0.6;
+    }
+  }
+}
+
