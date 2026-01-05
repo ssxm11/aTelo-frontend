@@ -1,18 +1,53 @@
 .check-in {
-  max-width: 600px;
-  margin: 4rem auto;
-  padding: 1rem;
-}
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 2rem;
 
-textarea {
-  width: 100%;
-  min-height: 120px;
-  margin: 1rem 0;
+  textarea {
+    width: 100%;
+    min-height: 120px;
+    margin-top: 1rem;
+  }
+
+  button {
+    margin-top: 1.2rem;
+  }
 }
 
 .blocked {
   margin-top: 2rem;
-  padding: 1rem;
-  background: #f5f5f5;
-  border-radius: 8px;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.04);
+
+  &-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  &-text {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 1.2rem;
+  }
+
+  &-actions {
+    display: flex;
+    gap: 0.75rem;
+
+    button {
+      flex: 1;
+    }
+  }
+
+  .secondary {
+    background: transparent;
+    border: 1px solid #ccc;
+  }
+
+  .primary {
+    background: #111;
+    color: white;
+  }
 }
+

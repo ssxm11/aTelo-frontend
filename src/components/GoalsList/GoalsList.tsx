@@ -9,6 +9,7 @@ interface Goal {
   title: string;
   description?: string;
   completed: boolean;
+  progress: number | null;
 }
  
 interface GoalsListProps {
@@ -110,6 +111,15 @@ useEffect(() => {
     <p className="goal-description">
       {goal.description}
     </p>
+  )}
+
+  {goal.progress !== null && (
+    <div className="goal-progress">
+      <div
+        className="goal-progress-bar"
+        style={{ width: `${goal.progress * 100}%` }}
+      />
+    </div>
   )}
 </div>
 
